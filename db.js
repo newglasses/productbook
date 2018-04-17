@@ -27,6 +27,7 @@ const connect = ()=> {
                 seed();
             }
         }
+        console.log(err);
     });
 }
 
