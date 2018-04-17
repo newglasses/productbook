@@ -31,6 +31,18 @@ const connect = ()=> {
     });
 }
 
+const getProduct = (id, cb) => {
+    client.query('SELECT * FROM products WHERE id = $1', [ id ], (err, result)=> {
+        if(err){
+            return cb(err);
+        }
+        if (result.rows.length === 0) {
+            return cb(new Error('no record for that id'));
+        }
+        cb(null, result.rows[0]);
+    });
+};
+
 const getProducts = (cb)=> {
     client.query('select * from products', (err, result) => {
         if (err) {
@@ -42,5 +54,6 @@ const getProducts = (cb)=> {
 
 module.exports = {
     connect,
-    getProducts
+    getProducts,
+    getProduct
 };
