@@ -21,4 +21,17 @@ router.get('/:id', (req, res, next)=> {
     })
 });
 
+router.post('/', (req, res, next) => {
+    console.log(req.body);
+    
+    db.addProduct(req.body.name, (err, result)=> {
+      if (err){
+        return next (err);
+      } 
+
+      res.redirect('/products');
+    })
+});
+  
+
 module.exports = router;

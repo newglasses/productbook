@@ -52,8 +52,18 @@ const getProducts = (cb)=> {
     });
 };
 
+const addProduct = (name, cb) => {
+    client.query('INSERT INTO products(name) VALUES($1)', [ name ], (err, result) => {
+        if(err){
+            return cb(err);
+        }
+        cb(null, result.rows[0]);
+    });
+};
+
 module.exports = {
     connect,
     getProducts,
-    getProduct
+    getProduct,
+    addProduct
 };
