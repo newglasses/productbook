@@ -53,6 +53,16 @@ router.put('/:id', (req, res, next) => {
         res.redirect(303, '/products');
     })
 });
-  
 
+router.delete('/:id', (req, res, next) => {
+    const { id } = req.params;
+  
+    db.deleteProduct(id, (err, result) => {
+        if (err){
+            return next (err);
+        }
+        res.redirect(303, '/products');
+    })
+  });
+  
 module.exports = router;

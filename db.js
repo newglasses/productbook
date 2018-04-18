@@ -63,7 +63,14 @@ const addProduct = (name, price, cb) => {
 };
 
 const editProduct = (id, fields, values, cb) => {
-    fields.forEach((field, index) => {
+    client.query('SELECT * FROM products WHERE id=($1)', [id], (err, res) => {
+        if(err){
+            return cb(err);
+        }
+        if (res.rows.length === 0) {
+            return cb(new Error('no record for that id'));
+        }
+        fields.forEach((field, index) => {
             client.query(
                 `UPDATE products SET ${field}=($1) WHERE id=($2)`, [values[index], id], (err, result) => {
                   if (err){
@@ -74,6 +81,24 @@ const editProduct = (id, fields, values, cb) => {
                       cb(null);
                   }
             });
+        });
+    });
+};
+
+const deleteProduct = (id, cb) => {
+    client.query('SELECT * FROM products WHERE id=($1)', [id], (err, res) => {
+        if(err){
+            return cb(err);
+        }
+        if (res.rows.length === 0) {
+            return cb(new Error('no record for that id'));
+        }
+        client.query('DELETE FROM products WHERE id=($1)', [id], (err, res) => {
+            if(err){
+                return cb(err);
+            }
+            cb(null);
+        });
     });
 };
 
@@ -82,5 +107,6 @@ module.exports = {
     getProducts,
     getProduct,
     addProduct,
-    editProduct
+    editProduct,
+    deleteProduct
 };
