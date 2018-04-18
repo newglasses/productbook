@@ -62,9 +62,25 @@ const addProduct = (name, price, cb) => {
     });
 };
 
+const editProduct = (id, fields, values, cb) => {
+    fields.forEach((field, index) => {
+            client.query(
+                `UPDATE products SET ${field}=($1) WHERE id=($2)`, [values[index], id], (err, result) => {
+                  if (err){
+                      return cb(err);
+                  }
+                  if (index === fields.length - 1)
+                  {
+                      cb(null);
+                  }
+            });
+    });
+};
+
 module.exports = {
     connect,
     getProducts,
     getProduct,
-    addProduct
+    addProduct,
+    editProduct
 };

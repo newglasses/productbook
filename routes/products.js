@@ -32,6 +32,27 @@ router.post('/', (req, res, next) => {
       res.redirect('/products');
     })
 });
+
+router.put('/:id', (req, res, next) => {
+    const { id } = req.params;
+    const keys = ['name', 'price'];
+    const fields = [];
+    const values = [];
+  
+    keys.forEach(key => {
+      if (req.body[key]){
+        fields.push(key);
+        values.push(req.body[key]);
+      } 
+    });
+
+    db.editProduct(id, fields, values, (err, result) => {
+        if (err){
+            return next (err);
+        }
+        res.redirect(303, '/products');
+    })
+});
   
 
 module.exports = router;
