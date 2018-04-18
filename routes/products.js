@@ -22,9 +22,9 @@ router.get('/:id', (req, res, next)=> {
 });
 
 router.post('/', (req, res, next) => {
-    console.log(req.body);
-    
-    db.addProduct(req.body.name, (err, result)=> {
+    const { name, price } = req.body;
+
+    db.addProduct(name, price, (err, result)=> {
       if (err){
         return next (err);
       } 

@@ -7,11 +7,12 @@ const seed = ()=> {
 	DROP TABLE IF EXISTS products;
 	CREATE TABLE products (
 	    id SERIAL primary key,
-	    name text
+        name text,
+        price int
     );
-    INSERT INTO products(name) VALUES ('foo');
-    INSERT INTO products(name) VALUES ('bar');
-    INSERT INTO products(name) VALUES ('baz');
+    INSERT INTO products(name, price) VALUES ('foo', 30);
+    INSERT INTO products(name, price) VALUES ('bar', 50);
+    INSERT INTO products(name, price) VALUES ('baz', 90);
     `;
     client.query(qry, (err, result) => {
         if(err){
@@ -52,8 +53,8 @@ const getProducts = (cb)=> {
     });
 };
 
-const addProduct = (name, cb) => {
-    client.query('INSERT INTO products(name) VALUES($1)', [ name ], (err, result) => {
+const addProduct = (name, price, cb) => {
+    client.query('INSERT INTO products(name, price) VALUES($1, $2)', [ name, price ], (err, result) => {
         if(err){
             return cb(err);
         }
