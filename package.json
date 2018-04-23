@@ -4,15 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "SEED=true DATABASE_URL=postgres://localhost/magicdb nodemon server.js"
+    "dev": "SEED=true DATABASE_URL=postgres://localhost/magicdb nodemon server.js",
+    "test": "SEED=true DATABASE_URL=postgres://localhost/magicdb mocha './test/**/*.spec.js' "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "express": "^4.16.3",
-    "pg": "^7.4.1"
+    "mocha": "^5.1.1",
+    "pg": "^7.4.1",
+    "sinon": "^4.5.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"
