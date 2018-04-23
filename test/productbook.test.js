@@ -67,7 +67,7 @@ describe('CRUD products', function(done) {
         .then((response) => {
             expect(response.body).to.be.a('object');
             console.log(response.body);
-            fixtures.product.id = response.body.id;
+            fixtures.product.id = response.body.id; // adds a new id property to the product object and populates it
             console.log(fixtures.product);
             expect(response.body).to.deep.equal(fixtures.product);
             done();
