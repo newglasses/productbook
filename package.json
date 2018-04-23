@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "SEED=true DATABASE_URL=postgres://localhost/magicdb nodemon server.js",
-    "test": "(dropdb testmagicdb --if-exists && createdb testmagicdb) && SEED=true DATABASE_URL=postgres://localhost/testmagicdb mocha './test/**/*.spec.js' "
+    "test": "(dropdb testmagicdb --if-exists && createdb testmagicdb) && NODE_ENV=test mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "express": "^4.16.3",
@@ -20,6 +21,7 @@
     "sinon": "^4.5.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.3",
+    "supertest": "^3.0.0"
   }
 }

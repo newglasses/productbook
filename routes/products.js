@@ -1,27 +1,55 @@
 const { Router } = require('express');
 const db = require('../db');
+const queries = require('../db/queries');
 
 const router = Router();
 
+function isValidId(req, res, next) {
+    if(!isNaN(req.params.id)) return next();
+    next(new Error('Invalid ID'));
+}
+
+function validProduct(product) {
+    const hasName = typeof product.name == 'string' && product.name.trim() != '';
+    // console.log("hasName: " + hasName);
+    return hasName;
+}
+
 router.get('/', (req, res, next) => {
-    db.getProducts((err, products) => {
-        if (err) {
-            return next(err);
+
+    queries.getProducts().then(products => {
+        if (products) {
+            res.json(products);
+        } else {
+            res.status(404);
+            next();
         }
-        res.send(products);
     });
 });
 
-router.get('/:id', (req, res, next)=> {
-    db.getProduct(req.params.id*1, (err, product)=> {
-        if(err){
-            return next(err);
+router.get('/:id', isValidId, (req, res, next)=> {
+
+    queries.getProductById(req.params.id).then(product => {
+        if(product) {
+            res.json(product);
+        } else {
+            res.status(404);
+            next();
         }
-        res.send(product);
-    })
+    });
 });
 
 router.post('/', (req, res, next) => {
+    if(validProduct(req.body)) {
+        queries.createProduct(req.body).then(products => {
+            res.json(products[0]);
+        });
+
+    } else {
+        next(new Error('Invalid product'));
+    }
+
+    /*
     const { name, price } = req.body;
 
     db.addProduct(name, price, (err, result)=> {
@@ -31,9 +59,10 @@ router.post('/', (req, res, next) => {
 
       res.redirect('/products');
     })
+    */
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', isValidId, (req, res, next) => {
     const { id } = req.params;
     const keys = ['name', 'price'];
     const fields = [];

@@ -6,4 +6,10 @@ module.exports = {
     client: 'pg',
     connection: 'postgres://localhost/magicdb'
   },
+
+  test: {
+    client: 'pg',
+    connection: 'postgres://localhost/testmagicdb'
+  },
+  
 };

@@ -33,7 +33,7 @@ const connect = ()=> {
 }
 
 const getProduct = (id, cb) => {
-    client.query('SELECT * FROM products WHERE id = $1', [ id ], (err, result)=> {
+    client.query('SELECT * FROM knex_product WHERE id = $1', [ id ], (err, result)=> {
         if(err){
             return cb(err);
         }
@@ -45,7 +45,7 @@ const getProduct = (id, cb) => {
 };
 
 const getProducts = (cb)=> {
-    client.query('select * from products', (err, result) => {
+    client.query('select * from knex_product', (err, result) => {
         if (err) {
             return cb(err);
         }
@@ -54,7 +54,7 @@ const getProducts = (cb)=> {
 };
 
 const addProduct = (name, price, cb) => {
-    client.query('INSERT INTO products(name, price) VALUES($1, $2)', [ name, price ], (err, result) => {
+    client.query('INSERT INTO knex_product (name, price) VALUES($1, $2)', [ name, price ], (err, result) => {
         if(err){
             return cb(err);
         }
@@ -63,7 +63,7 @@ const addProduct = (name, price, cb) => {
 };
 
 const editProduct = (id, fields, values, cb) => {
-    client.query('SELECT * FROM products WHERE id=($1)', [id], (err, res) => {
+    client.query('SELECT * FROM knex_product WHERE id=($1)', [id], (err, res) => {
         if(err){
             return cb(err);
         }
@@ -86,7 +86,7 @@ const editProduct = (id, fields, values, cb) => {
 };
 
 const deleteProduct = (id, cb) => {
-    client.query('SELECT * FROM products WHERE id=($1)', [id], (err, res) => {
+    client.query('SELECT * FROM knex_product WHERE id=($1)', [id], (err, res) => {
         if(err){
             return cb(err);
         }
