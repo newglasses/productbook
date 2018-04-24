@@ -11,5 +11,10 @@ module.exports = {
     client: 'pg',
     connection: 'postgres://localhost/testmagicdb'
   },
+
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL
+  },
   
 };
