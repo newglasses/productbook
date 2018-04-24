@@ -1,7 +1,13 @@
 const knex = require('./knex'); // want the connection, not the knex library!
 
-const getProducts = (cb)=> {
-    return knex('knex_product');
+const getProducts = (query) => {
+    const knexQuery = knex('knex_product');
+
+    if (query.name) {
+        knexQuery.where('name', 'like', `%${query.name}%`); // this is currently case sensitive
+    }
+
+    return knexQuery;
 };
 
 const getProductById = (id) => {

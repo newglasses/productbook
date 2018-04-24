@@ -19,8 +19,8 @@ function validProduct(product) {
 }
 
 router.get('/', (req, res, next) => {
-
-    queries.getProducts().then(products => {
+    const { name } = req.query;
+    queries.getProducts( { name }).then(products => {
         if (products) {
             res.json(products);
         } else {
