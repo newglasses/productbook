@@ -6,7 +6,7 @@ const app = require('../server.js');
 
 const fixtures = require('./fixtures');
 
-describe('CRUD products', function(done) {
+describe.only('CRUD products', function(done) {
 
     before((done) => {
         // run migrations
@@ -43,7 +43,7 @@ describe('CRUD products', function(done) {
         });
     });
 
-    it.skip('Lists a record by id', function(done) {
+    it('Lists a record by id', function(done) {
         this.timeout(10000)
         request(app)
         .get('/products/4')
@@ -62,7 +62,7 @@ describe('CRUD products', function(done) {
         .post('/products/')
         .send(fixtures.product)
         .set('Accept', 'application/json')
-        .expect('Content-type', /json/)
+        .expect('Content-Type', /json/)
         .expect(200)
         .then((response) => {
             expect(response.body).to.be.a('object');
@@ -71,6 +71,36 @@ describe('CRUD products', function(done) {
             console.log(fixtures.product);
             expect(response.body).to.deep.equal(fixtures.product);
             done();
-        })
-    })
+        });
+    });
+
+    it('Updates a record', function(done) {
+        request(app)
+        .put('/products/5')
+        .send(fixtures.productUpdate)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then((response) => {
+            console.log(response.body);
+            expect(response.body).to.be.a('object');
+            expect(response.body).to.deep.equal(fixtures.productUpdated);
+            done();
+        });
+    });
+
+    it('Deletes a record', (done) => {
+        request(app)
+          .delete('/products/5')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .then((response) => {
+            expect(response.body).to.be.a('object');
+            expect(response.body).to.deep.equal({
+              deleted: true
+            });
+            done();
+          });
+      });
 });

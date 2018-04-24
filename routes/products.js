@@ -10,9 +10,12 @@ function isValidId(req, res, next) {
 }
 
 function validProduct(product) {
+    console.log("inside validProduct");
+    console.log(product);
     const hasName = typeof product.name == 'string' && product.name.trim() != '';
-    // console.log("hasName: " + hasName);
-    return hasName;
+    const hasPrice = !isNaN(product.price);
+    console.log("hasName: " + hasName + "" + " hasPrice" + hasPrice);
+    return hasName && hasPrice;
 }
 
 router.get('/', (req, res, next) => {
@@ -48,21 +51,20 @@ router.post('/', (req, res, next) => {
     } else {
         next(new Error('Invalid product'));
     }
-
-    /*
-    const { name, price } = req.body;
-
-    db.addProduct(name, price, (err, result)=> {
-      if (err){
-        return next (err);
-      } 
-
-      res.redirect('/products');
-    })
-    */
 });
 
 router.put('/:id', isValidId, (req, res, next) => {
+
+    if(validProduct(req.body)) {
+        queries.updateProduct(req.params.id, req.body).then(products => {
+            res.json(products[0]);
+        });
+
+    } else {
+        next(new Error('Invalid product'));
+    }
+
+    /*
     const { id } = req.params;
     const keys = ['name', 'price'];
     const fields = [];
@@ -81,17 +83,15 @@ router.put('/:id', isValidId, (req, res, next) => {
         }
         res.redirect(303, '/products');
     })
+    */
 });
 
 router.delete('/:id', (req, res, next) => {
-    const { id } = req.params;
-  
-    db.deleteProduct(id, (err, result) => {
-        if (err){
-            return next (err);
-        }
-        res.redirect(303, '/products');
-    })
-  });
+    queries.deleteProduct(req.params.id).then(() => {
+        res.json({
+            deleted: true
+        });
+    });
+});
   
 module.exports = router;

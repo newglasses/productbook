@@ -31,7 +31,20 @@ const product = {
     "price": 200
 };
 
+const productUpdate = {
+    "name": "test name",
+    "price": 200
+};
+
+const productUpdated = {
+    id: 5,
+    name: 'test name',
+    price: 200
+}
+
 module.exports = {
     products,
-    product
+    product,
+    productUpdate,
+    productUpdated
 };

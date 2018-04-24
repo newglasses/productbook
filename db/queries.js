@@ -12,6 +12,10 @@ const createProduct = (product) => {
     return knex('knex_product').insert(product, '*');
 }
 
+const updateProduct = (id, product) => {
+    return knex('knex_product').where('id', id).update(product, '*');
+}
+
 const editProduct = (id, fields, values, cb) => {
     client.query('SELECT * FROM knex_product WHERE id=($1)', [id], (err, res) => {
         if(err){
@@ -35,6 +39,11 @@ const editProduct = (id, fields, values, cb) => {
     });
 };
 
+const deleteProduct = (id) => {
+    return knex('knex_product').where('id', id).del();
+}
+
+/*
 const deleteProduct = (id, cb) => {
     client.query('SELECT * FROM knex_product WHERE id=($1)', [id], (err, res) => {
         if(err){
@@ -51,11 +60,12 @@ const deleteProduct = (id, cb) => {
         });
     });
 };
+*/
 
 module.exports = {
     getProducts,
     getProductById,
     createProduct,
-    editProduct,
+    updateProduct,
     deleteProduct
 };
