@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "SEED=true DATABASE_URL=postgres://localhost/magicdb nodemon server.js",
+    "dev": "nodemon server.js",
     "test": "(dropdb testmagicdb --if-exists && createdb testmagicdb) && NODE_ENV=test mocha"
   },
   "keywords": [],
