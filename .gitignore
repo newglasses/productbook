@@ -29,14 +29,14 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (http://nodejs.org/api/addons.html)
+# Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
 node_modules/
 jspm_packages/
 
-# Typescript v1 declaration files
+# TypeScript v1 declaration files
 typings/
 
 # Optional npm cache directory
@@ -57,4 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
-# taken from https://github.com/w3cj/CRUD-stickers-server/blob/master/.gitignore
+# next.js build output
+.next
+
+# generic gitignore for node (to be modified) taken from https://github.com/github/gitignore/blob/master/Node.gitignore
