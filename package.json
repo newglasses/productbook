@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "start": "node ./bin/www",
+    "dev": "nodemon",
     "test": "(dropdb testmagicdb --if-exists && createdb testmagicdb) && NODE_ENV=test mocha"
   },
   "keywords": [],
