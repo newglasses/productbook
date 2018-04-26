@@ -1,9 +1,8 @@
-const db = require('../../db');
+const db = require('../../db')
 
 describe('CRUD products', () => {
-    before(() => {
-        // seed the test db
-        db.connect();
-
-    });
-});
+  before(() => {
+    // seed the test db
+    db.connect()
+  })
+})

@@ -1,41 +1,42 @@
-function AuthController(){
+/* eslint-disable standard/no-callback-literal */
 
-    var roles;
-    var user;
+function AuthController () {
+  var roles
+  var user
 
-    function setRoles(role){
-        roles = role;
-        user.roles = role;
+  function setRoles (role) {
+    roles = role
+    user.roles = role
+  }
+
+  function setUser (inUser) {
+    user = inUser
+  }
+
+  function isAuthorized (neededRole) {
+    if (user) {
+      return user.isAuthorized(neededRole)
     }
+  }
 
-    function setUser(inUser){
-        user = inUser;
-    }
+  function isAuthorizedAsync (neededRole, cb) {
+    setTimeout(function () { cb(roles.indexOf(neededRole) >= 0) }, 0) // setTimeout: call the callback when everything else is done
+  }
 
-    function isAuthorized(neededRole){
-        if (user){
-            return user.isAuthorized(neededRole);
-        }
-    }
+  function isAuthorizedPromise (neededRole, cb) {
+    return new Promise(function (resolve) {
+      setTimeout(function () { resolve(roles.indexOf(neededRole) >= 0) }, 0)
+    })
+  }
 
-    function isAuthorizedAsync(neededRole, cb){
-        setTimeout(function(){cb(roles.indexOf(neededRole) >= 0)}, 0); // setTimeout: call the callback when everything else is done
+  function getIndex (req, res) {
+    if (req.user.isAuthorized('admin')) {
+      return res.render('index')
     }
+    return res.render('error')
+  }
 
-    function isAuthorizedPromise(neededRole, cb){
-        return new Promise(function(resolve){
-            setTimeout(function(){resolve(roles.indexOf(neededRole) >= 0)}, 0); 
-        });
-    }
-
-    function getIndex(req, res){
-        if (req.user.isAuthorized('admin')){
-            return res.render('index');
-        }
-        return res.render('error');
-    }
-    
-    return {isAuthorized, isAuthorizedAsync, setRoles, isAuthorizedPromise, getIndex, setUser};
+  return {isAuthorized, isAuthorizedAsync, setRoles, isAuthorizedPromise, getIndex, setUser}
 }
 
-module.exports = AuthController();
+module.exports = AuthController()
