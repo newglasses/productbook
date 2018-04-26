@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-expressions */
 
-var sinon = require('sinon')
+const sinon = require('sinon')
 const request = require('supertest')
-var expect = require('chai').expect
-var chai = require('chai')
-var chaiAsPromised = require('chai-as-promised')
+const expect = require('chai').expect
+const chai = require('chai')
+const chaiAsPromised = require('chai-as-promised')
 const knex = require('../db/knex')
 
 chai.use(chaiAsPromised) // using chai-as-promised like middleware
@@ -37,7 +37,7 @@ describe.only('CRUD products', function (done) {
       })
   })
 
-  it('Lists all records using sinon', function (done) {
+  it.skip('Lists all records using sinon', function (done) {
     const products = fixtures.products
     const stubGetAllProducts = sinon.stub('products').returns(products)
 
