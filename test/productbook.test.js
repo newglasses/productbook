@@ -37,7 +37,7 @@ describe.only('CRUD products', function (done) {
       })
   })
 
-  it.skip('Lists all records using sinon', function (done) {
+  it('Lists all records using sinon', function (done) {
     const products = fixtures.products
     const stubGetAllProducts = sinon.stub('products').returns(products)
 
