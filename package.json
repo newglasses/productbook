@@ -7,11 +7,11 @@
     "plugins": [ "typescript" ]
   },
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon",
-    "test": "(dropdb testmagicdb --if-exists && createdb testmagicdb) && standard && NODE_ENV=test mocha"
+    "test": "(dropdb testmagicdb --if-exists && createdb testmagicdb) && standard && NODE_ENV=test mocha",
+    "unit": "standard && mocha $(find ./routes -name \"*.test.js\")"
   },
   "keywords": [],
   "author": "",
