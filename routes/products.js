@@ -16,6 +16,9 @@ module.exports = function (app) {
         next()
       }
     })
+      .catch(function (error) {
+        next(error)
+      })
   })
   route.get('/:id', isValidId, (req, res, next) => {
     queries.getProductById(req.params.id).then(product => {

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-expressions */
 
-const sinon = require('sinon')
 const request = require('supertest')
 const expect = require('chai').expect
 const chai = require('chai')
@@ -33,20 +32,6 @@ describe.only('CRUD products', function (done) {
       .then((response) => {
         expect(response.body).to.be.a('array')
         expect(response.body).to.deep.equal(fixtures.products)
-        done()
-      })
-  })
-
-  it('Lists all records using sinon', function (done) {
-    const products = fixtures.products
-    const stubGetAllProducts = sinon.stub('products').returns(products)
-
-    request(app)
-      .expect(200)
-      .end(function (error, response) {
-        expect(error).to.be.null
-        expect(stubGetAllProducts).calledonce.should.be.true
-        expect(response.text).to.equal(JSON.stringify(products))
         done()
       })
   })

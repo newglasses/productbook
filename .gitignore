@@ -61,3 +61,6 @@ typings/
 .next
 
 # generic gitignore for node (to be modified) taken from https://github.com/github/gitignore/blob/master/Node.gitignore
+
+.vscode/
+.zshrc.swp
